@@ -1,31 +1,36 @@
-import { useEffect, useState } from "react";
-import api from "../../../services/api";
+import { useEffect, useState} from 'react';
+import api from '../../services/api';
 
-function Home() {
+// URL DA API: /movie/now_playing?api_key=6648f19b8f09e1fc8d551f5926a5fcb3&language=pt-BR
 
-    const [filmes, setFilmes] = useState([]);
+function Home(){
+  const [filmes, setFilmes] = useState([]);
 
-    useEffect(() => {
 
-        async function loadingFilmes() {
-            const response = await api.get("movie/now_playing", {
-                params: {
-                    api_key: "6648f19b8f09e1fc8d551f5926a5fcb3",
-                    language: "pt-BR",
-                    page: 1,
-                }
-            })
+  useEffect(()=>{
 
-            console.log(response.data.results);
+    async function loadFilmes(){
+      const response = await api.get("movie/now_playing", {
+        params:{
+         api_key: "6648f19b8f09e1fc8d551f5926a5fcb3",
+         language: "pt-BR",
+         page: 1,
         }
+      })
 
-        loadingFilmes();
-    }, [])
-    return (
-        <div>
-            <h1>Bem-vindo ao nossa Home</h1>
-        </div>
-    )
+      console.log(response.data.results);
+
+    }
+
+    loadFilmes();
+
+  }, [])
+
+  return(
+    <div>
+      <h1>BEM VINDO A HOME</h1>
+    </div>
+  )
 }
 
 export default Home;

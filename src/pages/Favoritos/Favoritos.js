@@ -1,9 +1,34 @@
 import './favoritos.css'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function Favoritos() {
+    const [filmes, setFilmes] = useState([]);
+
+    useEffect(() => {
+
+        const minhaLista = localStorage.getItem("@movieFlash");
+        setFilmes(JSON.parse(minhaLista) || []);
+    }, [])
+
     return (
-        <div>
-            <h1>TELA DE FAVORITOS</h1>
+        <div className='meus-filmes'>
+            <h1>Meus favoritos</h1>
+
+            <ul>
+                {filmes.map((item) => {
+                    return (
+                        <li key={item.id}>
+                            <span>{item.title}</span>
+
+                            <div>
+                                <Link to={`/filme/${item.id}`}>Ver detalhes</Link>
+                                <button>Excluir</button>
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul>
         </div>
     )
 }

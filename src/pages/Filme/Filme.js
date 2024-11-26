@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import './filme.css'
+import { toast } from "react-toastify";
 
 import api from '../../services/api';
 
@@ -43,13 +44,13 @@ function Filme() {
         const hasFilme = filmesSalvos.some((filmesSalvos) => filmesSalvos.id === filme.id);
 
         if(hasFilme){
-            alert("Esse filme já está na sua lista!");
+            toast.warn("Esse filme já está na sua lista!");
             return;
         }
 
         filmesSalvos.push(filme);
         localStorage.setItem("@movieFlash", JSON.stringify(filmesSalvos));
-        alert('Filme salvo com sucesso!');
+        toast.success('Filme salvo com sucesso!');
     }
 
     if (loading) {
